@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'contact',
-        'status'
+        'status',
+        'profile_image'
     ];
 
     /**
@@ -47,4 +48,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function categories()
+{
+    return $this->belongsToMany(Category::class, 'category_user');
+}
+
 }
