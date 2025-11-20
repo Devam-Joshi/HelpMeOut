@@ -72,7 +72,8 @@ class AuthController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user) return ApiResponse::send(false, "Unauthorized or Invalid Token", null, 401);
+        if (!$user)
+            return ApiResponse::send(false, "Unauthorized or Invalid Token", null, 401);
 
         return ApiResponse::send(true, "User Found", $user);
     }
@@ -88,9 +89,12 @@ class AuthController extends Controller
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        if ($request->name) $user->name = $request->name;
-        if ($request->contact) $user->contact = $request->contact;
-        if ($request->status) $user->status = $request->status;
+        if ($request->name)
+            $user->name = $request->name;
+        if ($request->contact)
+            $user->contact = $request->contact;
+        if ($request->status)
+            $user->status = $request->status;
 
         if ($request->hasFile('profile_image')) {
             $file = $request->file('profile_image');
