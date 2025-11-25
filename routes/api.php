@@ -18,6 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Get logged-in user details
     Route::get('/getuser', [AuthController::class, 'getuser']);
+    Route::post('forgot-password',[AuthController::class,'forgotPassword']);
+    Route::post('forgot-password-mail',[AuthController::class,'forgotPasswordMail']);
+    Route::Post('verify-otp',[AuthController::class,'verifyOtp']);
 
     // Update/Edit user profile (name, contact, image, status, etc.)
     Route::post('/edituser', [AuthController::class, 'edituser']);

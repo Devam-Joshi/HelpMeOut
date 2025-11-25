@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Helpers\ApiResponse;
+use App\Models\UserOtp;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Nette\Utils\Random;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -107,4 +111,84 @@ class AuthController extends Controller
 
         return ApiResponse::send(true, "User Updated Successfully", $user);
     }
+
+    public function forgotPasswordMail(Request $request)
+    {
+        // dd($request->email);
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'email' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        $user_id = $request->id;
+        // dd($email);
+        if (!$user) {
+            return ApiResponse::send(false, "User Not Found", $user);
+        }
+
+        $otp = rand(1000, 9999);
+        // dd($otp);
+        $userotp = UserOtp::create([
+            'user_id' => $user->id,
+            'otp' => $otp,
+            'expires_at' => now()->addMinutes(10)
+        ]);
+
+        Mail::send('emails.forgot_password_otp', ['name' => $user->name, 'otp' => $otp], function ($msg) use ($user) {
+            $msg->to($user->email)
+                ->subject('Forgot Password OTP - ' . config('app.name'));
+        });
+
+
+        return ApiResponse::send(true, "OTP sent successfully", $otp);
+    }
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'email',
+            'otp' => 'required',
+        ]);
+        // dd($request->otp);
+        $user = User::where('email', $request->email)->first();
+        $userotp = UserOtp::where('user_id', $user->id)->latest()->first();
+        // dd($userotp->otp);
+        // dd($otp);
+        $user_id = $user->id;
+        if ($request->otp == $userotp->otp) {
+
+            if (now()->greaterThan($userotp->expires_at)) {
+                return ApiResponse::send(false, "OTP Time Out", $userotp);
+                // dd($userotp);
+            }
+            
+                return ApiResponse::send(true, "OTP Verified Sucessfully", $userotp);
+
+        }else{
+            return ApiResponse::send(false, "OTP Invalid ");
+        }
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'password' => 'required',
+            'confirmpassword' => 'required',
+            'email' => 'required'
+        ]);
+
+        if($request->password == $request->confirmpassword){
+
+            $userpassword = User::where('email',$request->email)->first();
+
+            $userpassword->password = Hash::make($request->password);
+            $userpassword->save();
+
+            return ApiResponse::send(true, "Password Changed Successfully",$userpassword);
+        }
+        else{
+            return ApiResponse::send(true, "Password Not Matched");
+        }
+    }
+
 }
