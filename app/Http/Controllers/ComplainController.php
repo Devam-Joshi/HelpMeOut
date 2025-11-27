@@ -113,4 +113,9 @@ class ComplainController extends Controller
 
         return ApiResponse::send(true, "Complains fetched successfully", $complain, 200);
     }
+
+    public function getallcomplain(){
+        $complain = Compalin::all();
+dd($complain);
+    }
 }
