@@ -160,10 +160,10 @@ class AuthController extends Controller
                 return ApiResponse::send(false, "OTP Time Out", $userotp);
                 // dd($userotp);
             }
-            
-                return ApiResponse::send(true, "OTP Verified Sucessfully", $userotp);
 
-        }else{
+            return ApiResponse::send(true, "OTP Verified Sucessfully", $userotp);
+
+        } else {
             return ApiResponse::send(false, "OTP Invalid ");
         }
     }
@@ -177,18 +177,51 @@ class AuthController extends Controller
             'email' => 'required'
         ]);
 
-        if($request->password == $request->confirmpassword){
+        if ($request->password == $request->confirmpassword) {
 
-            $userpassword = User::where('email',$request->email)->first();
+            $userpassword = User::where('email', $request->email)->first();
 
             $userpassword->password = Hash::make($request->password);
             $userpassword->save();
 
-            return ApiResponse::send(true, "Password Changed Successfully",$userpassword);
-        }
-        else{
+            return ApiResponse::send(true, "Password Changed Successfully", $userpassword);
+        } else {
             return ApiResponse::send(true, "Password Not Matched");
         }
+    }
+
+    public function getuserlist()
+    {
+        // dd('getuserlist');
+        $getuserlist = User::all();
+        return ApiResponse::send(true, "User Fetch Successfully", $getuserlist);
+    }
+
+    public function changepassword(Request $request)
+    {
+        // dd('changepassowrd');
+
+        $validated = validator::make($request->all(), [
+            'id' => 'required',
+            'oldpassword' => 'required',
+            'newpassword' => 'required',
+            'confirmnewpassword' => 'required'
+        ]);
+        if ($request->newpassword != $request->confirmnewpassword) {
+            return ApiResponse::send(false, "Both New Password Not Matched", $validated->errors(), 422);
+        }
+        $user = User::where('id', $request->id)->first();
+        if (!Hash::check($request->oldpassword, $user->password)) {
+            return ApiResponse::send(false, "Old Password Not Matched", 422);
+        }
+        if ($request->newpassword != $request->confirmnewpassword) {
+            return ApiResponse::send(false, "Both New Password Not Matched", $validated->errors(), 422);
+        } else {
+            $user->password = $request->newpassword;
+            $user->save();
+            return ApiResponse::send(true, "Password Changed Successfully", $user);
+        }
+
     }
 
 }

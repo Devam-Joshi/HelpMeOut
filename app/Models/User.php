@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -50,8 +50,11 @@ class User extends Authenticatable
     }
 
     public function categories()
-{
-    return $this->belongsToMany(Category::class, 'category_user');
-}
-
+    {
+        return $this->belongsToMany(Category::class, 'category_user');
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

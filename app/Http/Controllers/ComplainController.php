@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
+use App\Models\CategoryUser;
 use App\Models\Compalin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ComplainController extends Controller
@@ -39,10 +41,67 @@ class ComplainController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'image' => "storage/".$imagePath,
-            'video' => "storage/".$videoPath,
+            'image' => "storage/" . $imagePath,
+            'video' => "storage/" . $videoPath,
         ]);
 
         return ApiResponse::send(true, "Complain Created Successfully", $complain, 201);
     }
+
+    public function updateStatus(Request $request)
+    {
+        // dd('update status');
+        $validated = validator::make($request->all(), [
+            'id' => 'required',
+            'status_id' => 'required'
+        ]);
+        if ($validated->fails()) {
+            return ApiResponse::send(false, "Complain Id Must Required", $validated->errors(), 422);
+        } else {
+            $complain = Compalin::where('id', $request->id)->first();
+            // dd($complain);
+
+            if ($request->id) {
+
+
+                $complain->status = $request->status_id;
+                $complain->save();
+
+                return ApiResponse::send(true, "Compalin Updated Sucessfully", [
+                    'id' => $request->id,
+                    'status_id' => $request->status_id
+                ], 201);
+            } else {
+                return ApiResponse::send(false, "Invalid Request", $validated->errors(), 422);
+            }
+        }
+    }
+
+    public function getcompalinbyid(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $complain = Compalin::where('user_id', $user->id)->get();
+        return ApiResponse::send(true, "Compalin Fetched Sucessfully", [
+            $complain
+        ], 201);
+    }
+
+    public function getcomplainbycatergory()
+    {
+        $user = Auth::user();
+
+        // Get all category IDs for the user
+        $categoryIds = CategoryUser::where('user_id', $user->id)
+            ->pluck('category_id')
+            ->toArray();
+
+        // Fetch all complaints for those categories
+        $complains = Compalin::whereIn('category_id', $categoryIds)
+            ->get();
+
+        return ApiResponse::send(true, "Complains fetched successfully", $complains, 200);
+    }
+
 }
