@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\CategoryUser;
 use App\Models\Compalin;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\ApiResponse;
@@ -66,5 +67,36 @@ class CategoryController extends Controller
             'CategoryUser' => $CategoryUser
         ], 201);
     }
+
+    public function delete(Request $request)
+    {
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+        if (!$request->id) {
+            return ApiResponse::send(false, "Category Not Found", $validator->errors(), 422);
+
+        }
+        // dd($request->id);
+        $category = Category::where('id', $request->id)->first();
+        // dd($category);
+        $category->delete();
+
+        return ApiResponse::send(true, "Category Deleted Successfully");
+    }
+
+    public function editcategory(Request $request){
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(),[
+            'id' => 'required'
+        ]);
+
+        $category = Category::where('id',$request->id)->first();
+        // dd($category);
+
+        $category->name = $request->name;
+        $category->save();
+        return ApiResponse::send(true, "Category Updated Successfully");
+    }
+    
 
 }

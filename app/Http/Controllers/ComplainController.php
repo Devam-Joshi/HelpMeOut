@@ -16,7 +16,7 @@ class ComplainController extends Controller
         $validated = Validator::make($request->all(), [
             'title' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
+            // 'user_id' => 'required|exists:users,id',
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
             'video' => 'nullable|max:10000'
         ]);
@@ -40,7 +40,7 @@ class ComplainController extends Controller
         $complain = Compalin::create([
             'title' => $request->title,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
+            'user_id' => Auth::user()->id,
             'image' => "storage/" . $imagePath,
             'video' => "storage/" . $videoPath,
         ]);
