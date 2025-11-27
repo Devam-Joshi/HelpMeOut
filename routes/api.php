@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/edituser', [AuthController::class, 'edituser']);
     // Route::post('create-category',[CategoryController::class,'createCategopry']);
 
-    Route::middleware(['auth:sanctum', RoleMiddleware::class . ':1'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('create-category', [CategoryController::class, 'createCategopry']);
         Route::post('category-to-user', [CategoryController::class, 'CategoryToUser']);
         Route::post('update-status',[ComplainController::class,'updateStatus']);
