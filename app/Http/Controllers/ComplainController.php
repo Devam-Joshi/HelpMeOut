@@ -104,4 +104,13 @@ class ComplainController extends Controller
         return ApiResponse::send(true, "Complains fetched successfully", $complains, 200);
     }
 
+    public function getcomplainbystatus(Request $request){
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(),[
+            'status_id' => 'required' 
+        ]);
+
+        $complain = Compalin::where('status',$request->status_id)->get();
+
+        return ApiResponse::send(true, "Complains fetched successfully", $complain, 200);
+    }
 }

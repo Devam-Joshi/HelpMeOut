@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('getuserlist',[AuthController::class,'getuserlist']);
         Route::post('delete-category',[CategoryController::class ,'delete']);
         Route::post('edit-category',[CategoryController::class,'editcategory']);
+        Route::get('getcomplainbystatus',[ComplainController::class,'getcomplainbystatus']);
     });
     
     Route::get('getcategory', [CategoryController::class, 'getcategory']);
