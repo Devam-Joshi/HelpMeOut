@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compalin;
 use App\Models\User;
 use App\Helpers\ApiResponse;
 use App\Models\UserOtp;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Nette\Utils\Random;
 use Validator;
@@ -222,6 +224,38 @@ class AuthController extends Controller
             return ApiResponse::send(true, "Password Changed Successfully", $user);
         }
 
+    }
+
+    public function getGlobalDashboard(){
+        $userId = Auth::user()->id;
+
+        $pendingComplain = Compalin::where('status',1)->where('user_id',$userId)->count();
+        $inprogressComplain = Compalin::where('status',2)->where('user_id',$userId)->count();
+        $completedComplain = Compalin::where('status',3)->where('user_id',$userId)->count();
+
+        $data = [
+            'pending_count' => $pendingComplain,
+            'inprogress_count' => $inprogressComplain,
+            'completed_count' => $completedComplain,
+        ];
+
+        return ApiResponse::send(true,"Dashboard",$data);
+    }
+
+    public function getSuperDashboard(){
+        $userId = Auth::user()->id;
+
+        $pendingComplain = Compalin::where('status',1)->count();
+        $inprogressComplain = Compalin::where('status',2)->count();
+        $completedComplain = Compalin::where('status',3)->count();
+
+        $data = [
+            'pending_count' => $pendingComplain,
+            'inprogress_count' => $inprogressComplain,
+            'completed_count' => $completedComplain,
+        ];
+
+        return ApiResponse::send(true,"Dashboard",$data);
     }
 
 }

@@ -36,6 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('edit-category',[CategoryController::class,'editcategory']);
         Route::get('getcomplainbystatus',[ComplainController::class,'getcomplainbystatus']);
         Route::get('getallcomplain',[ComplainController::class,'getallcomplain']);
+
+        Route::get('get-global-dashboard',[AuthController::class,'getGlobalDashboard']);
+        Route::get('get-super-dashboard',[AuthController::class,'getSuperDashboard']);
     });
     
     Route::get('getcategory', [CategoryController::class, 'getcategory']);
