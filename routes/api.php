@@ -45,5 +45,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('create-complain', [ComplainController::class, 'CreateComplain']);
     Route::get('getcompalinbyid',[ComplainController::class,'getcompalinbyid']);
     Route::get('getcomplainbycatergory',[ComplainController::class,'getcomplainbycatergory']);
+    Route::get('getcomplainbycomplainid',[ComplainController::class,'getcomplainbycomplainid']);
 });
 
