@@ -106,25 +106,54 @@ class ComplainController extends Controller
         return ApiResponse::send(true, "Complains fetched successfully", $complains, 200);
     }
 
-    public function getcomplainbycomplainid(Request $request ){
-        $complain_id = $request->complain_id;
+    public function getcomplainbycomplainid(Request $request)
+    {
+        $complain = Compalin::with([
+            'user:id,name',
+            'category:id,name'
+        ])->find($request->complain_id);
 
-        $complain = Compalin::where('id',$complain_id)->first();
-        return ApiResponse::send(true,"Complain Fetch Successfully",$complain,200);
+        if (!$complain) {
+            return ApiResponse::send(false, "Complain Not Found", null, 404);
+        }
+
+        $response = [
+            'id' => $complain->id,
+            'title' => $complain->title,
+            'user_id' => $complain->user_id,
+            'user_name' => $complain->user?->name,
+            'category_id' => $complain->category_id,
+            'category_name' => $complain->category?->name,
+            'image' => $complain->image,
+            'video' => $complain->video,
+            'created_at' => $complain->created_at,
+        ];
+
+        return ApiResponse::send(
+            true,
+            "Complain Fetch Successfully",
+            $response,
+            200
+        );
     }
-    public function getcomplainbystatus(Request $request){
-        $validator = \Illuminate\Support\Facades\Validator::make($request->all(),[
-            'status_id' => 'required' 
+
+
+
+    public function getcomplainbystatus(Request $request)
+    {
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'status_id' => 'required'
         ]);
 
-        $complain = Compalin::where('status',$request->status_id)->get();
+        $complain = Compalin::where('status', $request->status_id)->get();
 
         return ApiResponse::send(true, "Complains fetched successfully", $complain, 200);
     }
 
-    public function getallcomplain(){
+    public function getallcomplain()
+    {
         $complain = Compalin::all();
-// dd($complain);
-return ApiResponse::send(true, "Complains fetched successfully", $complain, 200);
+        // dd($complain);
+        return ApiResponse::send(true, "Complains fetched successfully", $complain, 200);
     }
 }

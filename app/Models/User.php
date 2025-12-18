@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+      public function complains()
+    {
+        return $this->hasMany(Compalin::class, 'user_id');
+    }
 }
