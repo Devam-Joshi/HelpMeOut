@@ -81,14 +81,31 @@ class ComplainController extends Controller
 
     public function getcompalinbyid(Request $request)
     {
-
         $user = Auth::user();
 
-        $complain = Compalin::where('user_id', $user->id)->get();
-        return ApiResponse::send(true, "Compalin Fetched Sucessfully", [
-            $complain
-        ], 201);
+        $complains = Compalin::with('category:id,name')
+            ->where('user_id', $user->id)
+            ->get()
+            ->map(function ($complain) {
+                return [
+                    'id' => $complain->id,
+                    'title' => $complain->title,
+                    'category_id' => $complain->category_id,
+                    'category_name' => $complain->category?->name,
+                    'image' => $complain->image,
+                    'video' => $complain->video,
+                    'created_at' => $complain->created_at,
+                ];
+            });
+
+        return ApiResponse::send(
+            true,
+            "Complains Fetched Successfully",
+            $complains,
+            200
+        );
     }
+
 
     public function getcomplainbycatergory()
     {
