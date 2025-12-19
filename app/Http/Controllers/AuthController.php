@@ -45,16 +45,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validated = \Illuminate\Support\Facades\Validator::make($request->all(), [
+        $validated = Validator::make($request->all(), [
             'email' => 'nullable',
             'contact' => 'nullable',
             'password' => 'required',
+            'role_id' => 'required|in:1,2,3', // 1=admin, 2=agent, 3=super admin
         ]);
 
         if ($validated->fails()) {
             return ApiResponse::send(false, "Validation Error", $validated->errors(), 422);
         }
 
+        // find user by email or contact
         $user = null;
         if ($request->email) {
             $user = User::where('email', $request->email)->first();
@@ -64,17 +66,36 @@ class AuthController extends Controller
             return ApiResponse::send(false, "Email or Contact is required to login", null, 400);
         }
 
-        if ($user && Hash::check($request->password, $user->password)) {
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return ApiResponse::send(true, "Login Successful", [
-                'user' => $user,
-                'token' => $token
-            ]);
+        // user not found
+        if (!$user) {
+            return ApiResponse::send(false, "User not found", null, 404);
         }
 
-        return ApiResponse::send(false, "Invalid Credentials", null, 401);
+        // role check
+        if ($user->role_id != $request->role_id) {
+            return ApiResponse::send(false, "Unauthorized role access", null, 403);
+        }
+
+        // password check
+        if (!Hash::check($request->password, $user->password)) {
+            return ApiResponse::send(false, "Invalid Credentials", null, 401);
+        }
+
+        // create token
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return ApiResponse::send(true, "Login Successful", [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'contact' => $user->contact,
+                'role_id' => $user->role_id,
+            ],
+            'token' => $token
+        ], 200);
     }
+
 
     public function getuser(Request $request)
     {
@@ -228,12 +249,13 @@ class AuthController extends Controller
 
     }
 
-    public function getGlobalDashboard(){
+    public function getGlobalDashboard()
+    {
         $userId = Auth::user()->id;
 
-        $pendingComplain = Compalin::where('status',1)->where('user_id',$userId)->count();
-        $inprogressComplain = Compalin::where('status',2)->where('user_id',$userId)->count();
-        $completedComplain = Compalin::where('status',3)->where('user_id',$userId)->count();
+        $pendingComplain = Compalin::where('status', 1)->where('user_id', $userId)->count();
+        $inprogressComplain = Compalin::where('status', 2)->where('user_id', $userId)->count();
+        $completedComplain = Compalin::where('status', 3)->where('user_id', $userId)->count();
 
         $data = [
             'pending_count' => $pendingComplain,
@@ -241,15 +263,16 @@ class AuthController extends Controller
             'completed_count' => $completedComplain,
         ];
 
-        return ApiResponse::send(true,"Dashboard",$data);
+        return ApiResponse::send(true, "Dashboard", $data);
     }
 
-    public function getSuperDashboard(){
+    public function getSuperDashboard()
+    {
         $userId = Auth::user()->id;
 
-        $pendingComplain = Compalin::where('status',1)->count();
-        $inprogressComplain = Compalin::where('status',2)->count();
-        $completedComplain = Compalin::where('status',3)->count();
+        $pendingComplain = Compalin::where('status', 1)->count();
+        $inprogressComplain = Compalin::where('status', 2)->count();
+        $completedComplain = Compalin::where('status', 3)->count();
 
         $data = [
             'pending_count' => $pendingComplain,
@@ -257,7 +280,7 @@ class AuthController extends Controller
             'completed_count' => $completedComplain,
         ];
 
-        return ApiResponse::send(true,"Dashboard",$data);
+        return ApiResponse::send(true, "Dashboard", $data);
     }
 
 }
