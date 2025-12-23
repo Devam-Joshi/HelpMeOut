@@ -224,10 +224,9 @@ class AuthController extends Controller
 
     public function changepassword(Request $request)
     {
-        // dd('changepassowrd');
+        // dd($request->all());
 
         $validated = validator::make($request->all(), [
-            'id' => 'required',
             'oldpassword' => 'required',
             'newpassword' => 'required',
             'confirmnewpassword' => 'required'
@@ -235,7 +234,7 @@ class AuthController extends Controller
         if ($request->newpassword != $request->confirmnewpassword) {
             return ApiResponse::send(false, "Both New Password Not Matched", $validated->errors(), 422);
         }
-        $user = User::where('id', $request->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         if (!Hash::check($request->oldpassword, $user->password)) {
             return ApiResponse::send(false, "Old Password Not Matched", 422);
         }
