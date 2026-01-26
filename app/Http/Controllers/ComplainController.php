@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ApiResponse;
 use App\Models\CategoryUser;
 use App\Models\Compalin;
+use App\Models\TakeComplaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,9 @@ class ComplainController extends Controller
             'description' => 'required',
             // 'user_id' => 'required|exists:users,id',
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'video' => 'nullable|max:10000'
+            'video' => 'nullable|max:10000',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
         ]);
 
         if ($validated->fails()) {
@@ -40,6 +43,8 @@ class ComplainController extends Controller
 
         $complain = Compalin::create([
             'title' => $request->title,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'description' => $request->description,
             'category_id' => $request->category_id,
             'user_id' => Auth::user()->id,
@@ -172,5 +177,84 @@ class ComplainController extends Controller
         $complain = Compalin::all();
         // dd($complain);
         return ApiResponse::send(true, "Complains fetched successfully", $complain, 200);
+    }
+
+    public function takeComplaint(Request $request)
+    {
+        $authUser = auth()->user();
+
+        $validator = Validator::make($request->all(), [
+            'complaint_id' => 'required|exists:complains,id',
+            'agent_id' => 'nullable|exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            return ApiResponse::send(
+                false,
+                'Validation Error',
+                $validator->errors(),
+                422
+            );
+        }
+
+        // Get validated data
+        $data = $validator->validated();
+
+        // Decide agent
+        $agentId = $data['agent_id'] ?? $authUser->id;
+
+        // Prevent duplicate assignment
+        $alreadyAssigned = TakeComplaint::where('complaint_id', $data['complaint_id'])->exists();
+
+        if ($alreadyAssigned) {
+            return ApiResponse::send(
+                false,
+                'Complaint already assigned',
+                null,
+                409
+            );
+        }
+
+        // Create assignment
+        $takeComplaint = TakeComplaint::create([
+            'complaint_id' => $data['complaint_id'],
+            'agent_id' => $agentId,
+        ]);
+
+        // Update complaint status
+        Compalin::where('id', $data['complaint_id'])->update([
+            'status' => 4,
+            'user_id' => $agentId,
+        ]);
+
+        $message = isset($data['agent_id'])
+            ? 'Complaint assigned to agent successfully'
+            : 'Complaint taken successfully';
+
+        return ApiResponse::send(
+            true,
+            $message,
+            $takeComplaint,
+            201
+        );
+    }
+
+    public function agentTakenComplaints(Request $request)
+    {
+        $agent = auth()->user();
+
+        $takenComplaints = TakeComplaint::with([
+            'complaint:id,title,description,category_id,status,priority,image,video,created_at'
+        ])
+            ->where('agent_id', $agent->id)
+            ->latest()
+            ->paginate(10);
+
+        return ApiResponse::send(
+            true,
+            'Your taken complaints fetched successfully',
+            $takenComplaints,
+            200
+        );
     }
 }
