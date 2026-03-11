@@ -23,7 +23,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
             background: white;
             color: #333;
         }
@@ -56,7 +56,7 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            margin-right:8px;
             flex: 0 0 auto;
             font-size: 12px;
         }
@@ -64,7 +64,7 @@
         .header-left-contact {
             display: flex;
             flex-direction: column;
-            gap: 1px;
+            margin-right: 8px;
             font-size: 12px;
         }
 
@@ -85,7 +85,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 3px;
+            margin: 3px 0;
             position: relative;
         }
 
@@ -101,7 +101,7 @@
             text-align: right;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            margin-right: 8px;
             font-size: 12px;
         }
 
@@ -152,7 +152,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            margin: 3px 0;
             
         }
 
@@ -162,7 +162,7 @@
             color: #2792fd;
             letter-spacing: 3px;
             line-height: 1;
-            font-family: "Bebas Neue", sans-serif;
+            font-family: "DejaVu Sans", Arial, sans-serif;
             font-style: normal;
         }
 
@@ -190,7 +190,7 @@
             font-weight: bold;
             letter-spacing: 3px;
             background: #FF8800;
-            font-family: "Playfair Display", serif;
+            font-family: Georgia, "Times New Roman", serif;
         }
 
         .title-bar span {
@@ -223,7 +223,7 @@
             display: flex;
             margin-bottom: 10px;
             align-items: center;
-            gap: 8px;
+            margin-right: 8px;
             text-align: center;
         }
 
@@ -297,7 +297,7 @@
             display: flex;
             justify-content: space-between;
             /* border-top: 1px solid #999; */
-            gap: 8px;
+            margin: 3px 0;
             align-items: flex-start;
             font-size: 15px;
         }
@@ -350,7 +350,7 @@
         .footer-icons {
             display: flex;
             justify-content: space-evenly;
-            gap: 10px;
+            margin: 3px 0;
             flex-wrap: wrap;
             margin-top: 10px;
         }
