@@ -274,11 +274,13 @@ class AuthController extends Controller
         $pendingComplain = Compalin::where('status', 1)->count();
         $inprogressComplain = Compalin::where('status', 2)->count();
         $completedComplain = Compalin::where('status', 3)->count();
+      	$rejectedComplain = Compalin::where('status', 4)->count();
 
         $data = [
             'pending_count' => $pendingComplain,
             'inprogress_count' => $inprogressComplain,
             'completed_count' => $completedComplain,
+          	'rejected_count' => $rejectedComplain
         ];
 
         return ApiResponse::send(true, "Dashboard", $data);
