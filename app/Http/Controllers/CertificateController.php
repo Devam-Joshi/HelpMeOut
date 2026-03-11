@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Process;
 use App\Models\Certificate;
 use Carbon\Carbon;
 
@@ -11,6 +10,7 @@ class CertificateController extends Controller
 {
     public function create(Request $request)
     {
+
         // -----------------------------
         // FINANCIAL YEAR + MONTH
         // -----------------------------
@@ -56,38 +56,9 @@ class CertificateController extends Controller
         ]);
 
         // -----------------------------
-        // IMAGE BASE64 FUNCTION
-        // -----------------------------
-        function base64Image($path)
-        {
-            $type = pathinfo($path, PATHINFO_EXTENSION);
-            $data = file_get_contents($path);
-            return 'data:image/' . $type . ';base64,' . base64_encode($data);
-        }
-
-        // -----------------------------
-        // IMAGES
-        // -----------------------------
-        $images = [
-            'safety_logo' => base64Image(public_path('images/safety_first.jpg')),
-            'sk_logo' => base64Image(public_path('images/sk_logo.jpeg')),
-            'fire_icon' => base64Image(public_path('images/fire_extinguare.png')),
-            'iso_logo' => base64Image(public_path('images/iso_9001.jpg')),
-            'footer1' => base64Image(public_path('images/footer_image_1.jpg')),
-            'footer2' => base64Image(public_path('images/footer_image_2.jpg')),
-            'footer3' => base64Image(public_path('images/footer_image_3.jpg')),
-            'footer4' => base64Image(public_path('images/footer_image_4.jpg')),
-            'footer5' => base64Image(public_path('images/footer_image_5.jpg')),
-            'footer6' => base64Image(public_path('images/footer_image_6.jpg')),
-            'footer7' => base64Image(public_path('images/footer_image_7.jpg')),
-            'footer8' => base64Image(public_path('images/footer_image_8.jpg')),
-            'footer9' => base64Image(public_path('images/footer_image_9.jpg')),
-        ];
-
-        // -----------------------------
         // RENDER HTML
         // -----------------------------
-        $html = view('certificate', array_merge($images, [
+        $html = view('certificate', [
             'certificate_number' => $certificate_number,
             'issued_to' => $certificate->issued_to,
             'issue_date' => $certificate->issue_date,
@@ -95,7 +66,8 @@ class CertificateController extends Controller
             'serial_no' => $certificate->serial_no,
             'notes' => $certificate->notes,
             'dueDate' => $dueDateFormatted,
-        ]))->render();
+            'hy_test' => $request->hy_test ?? '----',
+        ])->render();
 
         if (empty(trim($html))) {
             throw new \Exception('Certificate HTML is empty');
@@ -104,42 +76,50 @@ class CertificateController extends Controller
         // -----------------------------
         // PDF PATH
         // -----------------------------
-        $pdfFileName = $certificate_number.'.pdf';
+        $pdfFileName = str_replace('/', '-', $certificate_number) . '.pdf';
 
-        $absolutePdfPath = storage_path(
-            'app/public/certificates/' . $pdfFileName
-        );
+        $absolutePdfPath = storage_path('app/public/certificates/' . $pdfFileName);
 
         if (!file_exists(dirname($absolutePdfPath))) {
             mkdir(dirname($absolutePdfPath), 0755, true);
         }
 
         // -----------------------------
-        // GENERATE PDF USING WEASYPRINT
+        // TEMP HTML FILE
         // -----------------------------
         $tempHtmlPath = storage_path('app/temp_' . uniqid() . '.html');
-          file_put_contents($tempHtmlPath, $html);
+        file_put_contents($tempHtmlPath, $html);
 
-          $weasyBin = '/usr/local/bin/weasyprint';
+        // -----------------------------
+        // WEASYPRINT PATH
+        // -----------------------------
+        $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
 
-          if (!file_exists($weasyBin)) {
-              $weasyBin = '/usr/bin/weasyprint';
-          }
+        // base URL for images
+        $baseUrl = public_path();
 
-          $cmd = $weasyBin . ' ' . escapeshellarg($tempHtmlPath) . ' ' . escapeshellarg($absolutePdfPath) . ' 2>&1';
+        // -----------------------------
+        // GENERATE PDF
+        // -----------------------------
+        $cmd = "\"$python\" -m weasyprint --optimize-images -j 70 -D 500 --base-url \"$baseUrl\" \"$tempHtmlPath\" \"$absolutePdfPath\" 2>&1";
+        $output = shell_exec($cmd);
 
-          $output = shell_exec($cmd);
+        // save log
+        file_put_contents(storage_path('logs/weasyprint.log'), $output);
 
-          file_put_contents(storage_path('logs/weasyprint.log'), $output);
+        // remove temp file
+        @unlink($tempHtmlPath);
 
-          @unlink($tempHtmlPath);
+        // -----------------------------
+        // ERROR CHECK
+        // -----------------------------
+        if (!file_exists($absolutePdfPath)) {
+            return response()->json([
+                'error' => 'PDF generation failed',
+                'log' => $output
+            ]);
+        }
 
-          if (!file_exists($absolutePdfPath)) {
-              return response()->json([
-                  'error' => 'PDF generation failed',
-                  'log' => $output
-              ]);
-          }
         // -----------------------------
         // RETURN DOWNLOAD URL
         // -----------------------------

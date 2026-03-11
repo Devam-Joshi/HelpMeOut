@@ -347,7 +347,7 @@
         </div>
         <div class="header-center">
             <div class="header-logo-circle">
-                <img src="{{ $safety_logo }}" alt="Safety Logo">
+                <img src="images/safety_first.jpg">
             </div>
         </div>
         <div class="header-right">
@@ -361,7 +361,7 @@
     <div class="header-logo-section">
         <div class="header-logo-section-left">
             <div class="sk-logo">
-                <img src="{{ $sk_logo }}" alt="SK Logo">
+                <img src="images/sk_logo.jpeg">
             </div>
         </div>
         <div class="header-logo-section-center">
@@ -369,7 +369,7 @@
         </div>
         <div class="header-logo-section-right">
             <div class="fire-icon-box">
-                <img src="{{ $fire_icon }}" alt="Fire Extinguisher">
+                <img src="images/fire_extinguare.png">
             </div>
         </div>
     </div>
@@ -449,7 +449,7 @@
 
         <!-- ISO Badge -->
         <div class="iso-badge">
-            <img src="{{ $iso_logo }}" alt="ISO 9001">
+            <img src="images/iso_9001.jpg">
         </div>
 
         <!-- Signature Section -->
@@ -475,16 +475,16 @@
     <!-- ============ FOOTER ICONS ============ -->
     <table class="footer-icons-table">
         <tr>
-            <td><img src="{{ $fire_icon }}" alt=""></td>
-            <td><img src="{{ $footer1 }}" alt=""></td>
-            <td><img src="{{ $footer2 }}" alt=""></td>
-            <td><img src="{{ $footer3 }}" alt=""></td>
-            <td><img src="{{ $footer4 }}" alt=""></td>
-            <td><img src="{{ $footer5 }}" alt=""></td>
-            <td><img src="{{ $footer6 }}" alt=""></td>
-            <td><img src="{{ $footer7 }}" alt=""></td>
-            <td><img src="{{ $footer8 }}" alt=""></td>
-            <td><img src="{{ $footer9 }}" alt=""></td>
+            <td><img src="images/fire_extinguare.png"></td>
+            <td><img src="images/footer_image_1.jpg"></td>
+            <td><img src="images/footer_image_2.jpg"></td>
+            <td><img src="images/footer_image_3.jpg"></td>
+            <td><img src="images/footer_image_4.jpg"></td>
+            <td><img src="images/footer_image_5.jpg"></td>
+            <td><img src="images/footer_image_6.jpg"></td>
+            <td><img src="images/footer_image_7.jpg"></td>
+            <td><img src="images/footer_image_8.jpg"></td>
+            <td><img src="images/footer_image_9.jpg"></td>
         </tr>
     </table>
 
