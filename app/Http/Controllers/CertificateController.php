@@ -93,8 +93,12 @@ class CertificateController extends Controller
         // -----------------------------
         // WEASYPRINT PATH
         // -----------------------------
-        $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
+        //for local 
+        // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
 
+        // for live 
+        $python = '/usr/local/bin/weasyprint';
+        
         // base URL for images
         $baseUrl = public_path();
 
