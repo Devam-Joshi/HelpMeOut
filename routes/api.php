@@ -51,6 +51,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('take-complaint',[ComplainController::class,'takeComplaint']);
     Route::get('agent/taken-complaints', [ComplainController::class, 'agentTakenComplaints']);
 
-    Route::get('create-certificate',[CertificateController::class,'create']);
+    Route::post('create-certificate',[CertificateController::class,'create']);
 });
 

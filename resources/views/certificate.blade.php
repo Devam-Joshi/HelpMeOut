@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fire Extinguisher Certificate</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Playfair+Display:wght@700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -68,11 +70,11 @@
 
         .header-left-name {
             font-weight: bold;
-            color: #0066CC;
+            color: #2792fd;
         }
 
         .header-left-phone {
-            color: #0066CC;
+            color: #2792fd;
         }
 
         /* ============ HEADER CENTER - LOGO CIRCLE ============ */
@@ -105,11 +107,11 @@
 
         .header-right-office {
             font-weight: bold;
-            color: #0066CC;
+            color: #2792fd;
         }
 
         .header-right-phone {
-            color: #0066CC;
+            color: #2792fd;
         }
 
         .header-right-certificate-no {
@@ -151,15 +153,17 @@
             flex-direction: column;
             align-items: center;
             gap: 5px;
+            
         }
 
         .header-title {
-            font-size: 48px;
+            font-size: 5pc;
             font-weight: bold;
-            color: #0066CC;
+            color: #2792fd;
             letter-spacing: 3px;
             line-height: 1;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: "Bebas Neue", sans-serif;
+            font-style: normal;
         }
 
         .fire-icon-box {
@@ -180,11 +184,13 @@
         .title-bar {
             text-align: center;
             padding: 12px 15px;
+            color: #fff;
             border-bottom: 2px solid #999;
             font-size: 26px;
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             background: #FF8800;
+            font-family: "Playfair Display", serif;
         }
 
         .title-bar span {
@@ -198,7 +204,7 @@
             color: white;
             padding: 10px 15px;
             text-align: center;
-            font-size: 12px;
+            font-size: 15px;
             font-weight: bold;
             border-bottom: 2px solid #999;
             line-height: 1.4;
@@ -231,7 +237,7 @@
 
         .content-value {
             font-size: 15px;
-            color: #333;
+            color: #2792fd;
             border-bottom: 1px dotted #999;
             flex: 1;
             padding-bottom: 2px;
@@ -346,7 +352,7 @@
             justify-content: space-evenly;
             gap: 10px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .footer-icons img {
@@ -480,13 +486,13 @@
             <div class="content-data">
                 <div class="content-row">
                     <span class="content-label">CERTIFICATE NO. :</span>
-                    <span class="content-value">SSFS/2025-26/NEW-339</span>
+                    <span class="content-value">{{ $certificate_number }}</span>
                 </div>
 
                 <!-- Row 1: Company -->
                 <div class="content-row">
                     <span class="content-label">Certified M/s. :</span>
-                    <span class="content-value">SHREE VARJANG JALIYA KUMAR SHALA UPLETA</span>
+                    <span class="content-value">{{ $issued_to }}</span>
                 </div>
 
                 <!-- Row 2: Fire Extinguisher Type -->
@@ -504,25 +510,25 @@
                 <!-- Row 3: Pieces -->
                 <div class="content-row">
                     <span class="content-label">No. of Pcs. :</span>
-                    <span class="content-value">2 Pcs.</span>
+                    <span class="content-value">{{ $no_of_pc }} Pcs.</span>
                 </div>
 
                 <!-- Row 4: Refilling Date -->
                 <div class="content-row">
                     <span class="content-label">Refilling Date :</span>
-                    <span class="content-value">09-03-2026</span>
+                    <span class="content-value">{{ $issue_date }}</span>
                 </div>
 
                 <!-- Row 5: Next Due Date -->
                 <div class="content-row">
                     <span class="content-label">Next Due Date :</span>
-                    <span class="content-value">08-03-2027</span>
+                    <span class="content-value">{{ $dueDate }}</span>
                 </div>
 
                 <!-- Row 6: Sr. No -->
                 <div class="content-row">
                     <span class="content-label">Sr. No. :</span>
-                    <span class="content-value">SKFS/REF/2910-11/2025-26</span>
+                    <span class="content-value">{{ $serial_no }}</span>
                 </div>
 
                 <!-- Row 7: Parts -->
@@ -534,19 +540,19 @@
                 <!-- Row 8: Certificate Valid Date -->
                 <div class="content-row">
                     <span class="content-label">Certificate Valid Date :</span>
-                    <span class="content-value">08-03-2027</span>
+                    <span class="content-value">{{ $dueDate }}</span>
                 </div>
 
                 <!-- Row 9: Hy. Test -->
                 <div class="content-row">
                     <span class="content-label">Hy. Test :</span>
-                    <span class="content-value">----</span>
+                    <span class="content-value">{{ $hy_test ?? '----' }} </span>
                 </div>
 
                 <!-- Row 10: Remarks -->
                 <div class="content-row">
                     <span class="content-label">Remarks :</span>
-                    <span class="content-value">----</span>
+                    <span class="content-value">{{ $notes ?? '----' }}</span>
                 </div>
 
                 <!-- Completion Message -->
