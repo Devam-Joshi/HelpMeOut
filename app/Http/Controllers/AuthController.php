@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Helpers\ApiResponse;
 use App\Models\UserOtp;
 use Hash;
+use App\Models\TakeComplaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -255,11 +256,12 @@ class AuthController extends Controller
         $pendingComplain = Compalin::where('status', 1)->where('user_id', $userId)->count();
         $inprogressComplain = Compalin::where('status', 2)->where('user_id', $userId)->count();
         $completedComplain = Compalin::where('status', 3)->where('user_id', $userId)->count();
-
+        $assignedComplain = TakeComplaint::where('agent_id', $userId)->count();
         $data = [
             'pending_count' => $pendingComplain,
             'inprogress_count' => $inprogressComplain,
             'completed_count' => $completedComplain,
+            'assigned_count' => $assignedComplain,
         ];
 
         return ApiResponse::send(true, "Dashboard", $data);
