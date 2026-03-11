@@ -4,12 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Certificate;
+use App\Models\Compalin;
 use Carbon\Carbon;
 
 class CertificateController extends Controller
 {
     public function create(Request $request)
     {
+        $request->validate([
+            'complaint_id' => 'required|exists:complains,id',
+        ]);
+
+        // Get complaint
+        $complaint = Compalin::where('id', $request->complaint_id)->first();
+
+        // Check if certificate already generated
+        if ($complaint->is_certificate_generate == 1) {
+
+            // get existing certificate
+            $certificate = Certificate::where('complaint_id', $request->complaint_id)->first();
+
+            $pdfFileName = str_replace('/', '-', $certificate->certificate_number) . '.pdf';
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Certificate already generated',
+                'download_url' => asset('storage/certificates/' . $pdfFileName)
+            ]);
+        }
 
         // -----------------------------
         // FINANCIAL YEAR + MONTH
@@ -55,6 +77,11 @@ class CertificateController extends Controller
             'hy_test' => $request->hy_test ?? '',
         ]);
 
+        // update complaint
+        Compalin::where('id', $request->complaint_id)
+            ->update(['is_certificate_generate' => 1]);
+
+
         // -----------------------------
         // RENDER HTML
         // -----------------------------
@@ -98,7 +125,7 @@ class CertificateController extends Controller
 
         // for live 
         $python = '/usr/local/bin/weasyprint';
-        
+
         // base URL for images
         $baseUrl = public_path();
 
