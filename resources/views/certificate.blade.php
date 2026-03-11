@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -22,6 +24,11 @@
             font-family: Arial, sans-serif;
             background: white;
             color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         .certificate-container {
@@ -39,12 +46,9 @@
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 1px 15px;
-            /* border-bottom: 2px solid #999; */
+            align-items: center;
+            padding: 5px 15px;
             background: white;
-            min-height: 80px;
-            padding-bottom: 0%;
         }
 
         .header-left {
@@ -81,12 +85,11 @@
             justify-content: center;
             gap: 3px;
             position: relative;
-            padding-top: -20px;
         }
 
         .header-logo-circle img {
             width: 100px;
-            height: 100px;
+            /* height: 100px; */
             object-fit: contain;
         }
 
@@ -122,10 +125,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 20px;
+            padding: 3px 20px;
             border-bottom: 2px solid #999;
             background: white;
-            min-height: 100px;
         }
 
         .sk-logo {
@@ -157,6 +159,7 @@
             color: #0066CC;
             letter-spacing: 3px;
             line-height: 1;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         .fire-icon-box {
@@ -175,19 +178,19 @@
 
         /* ============ TITLE BAR ============ */
         .title-bar {
-        text-align: center;
-        padding: 12px 15px;
-        border-bottom: 2px solid #999;
-        font-size: 26px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        background: #FF8800;
-    }
+            text-align: center;
+            padding: 12px 15px;
+            border-bottom: 2px solid #999;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: #FF8800;
+        }
 
-    .title-bar span {
-        background: linear-gradient(transparent 60%, #FF8800 60%);
-        padding: 3px 8px;
-    }
+        .title-bar span {
+            background: linear-gradient(transparent 60%, #FF8800 60%);
+            padding: 3px 8px;
+        }
 
         /* ============ ADDRESS BAR ============ */
         .address-bar {
@@ -219,7 +222,7 @@
         }
 
         .content-label {
-            font-size: 11px;
+            font-size: 15px;
             color: #CC0000;
             font-weight: bold;
             min-width: 140px;
@@ -227,7 +230,7 @@
         }
 
         .content-value {
-            font-size: 11px;
+            font-size: 15px;
             color: #333;
             border-bottom: 1px dotted #999;
             flex: 1;
@@ -243,7 +246,7 @@
         .completion-message {
             text-align: center;
             margin: 12px 0;
-            font-size: 10px;
+            font-size: 15px;
             color: #CC0000;
             line-height: 1.5;
             font-weight: bold;
@@ -252,13 +255,10 @@
         /* ============ ISO BADGE ============ */
         .iso-badge {
             text-align: center;
-            margin: 8px 0;
-
         }
 
         .iso-badge img {
             text-align: center;
-            margin: 8px 0;
             height: 120px;
             width: 150px;
         }
@@ -290,11 +290,10 @@
         .signature-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 12px;
             /* border-top: 1px solid #999; */
             gap: 8px;
             align-items: flex-start;
+            font-size: 15px;
         }
 
         .signature-block {
@@ -310,7 +309,7 @@
         }
 
         .signature-label {
-            font-size: 9px;
+            font-size: 12px;
             color: #CC0000;
             font-weight: bold;
             line-height: 1.2;
@@ -342,17 +341,22 @@
         }
 
         /* ============ FOOTER ICONS ============ */
-        .footer-icons{
-            display:flex;
-            justify-content:center;
-            gap:10px;
-            flex-wrap:wrap;
-            margin-top:20px;
+        .footer-icons {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        .footer-icon img{
-            width:50px;
-            height:auto;
+        .footer-icons img {
+            width: 50px;
+            height: auto;
+        }
+
+        .footer-icon img {
+            width: 50px;
+            height: auto;
         }
 
         .footer-icon {
@@ -371,8 +375,7 @@
         /* ============ PRINT STYLES ============ */
         @page {
             size: A4;
-            margin: 0;
-            padding: 0;
+            margin: 5mm;
         }
 
         @media print {
@@ -383,10 +386,9 @@
 
             .certificate-container {
                 border: 3px solid #D4A574;
-                box-shadow: none;
                 page-break-after: always;
-                width: 210mm;
-                height: 297mm;
+                width: 100%;
+                height: auto;
             }
         }
 
@@ -408,9 +410,10 @@
         }
     </style>
 </head>
+
 <body>
     <div class="certificate-container">
-        
+
         <!-- ============ HEADER SECTION 1: Contact Info & Logo Circle ============ -->
         <div class="header">
             <!-- Left: Contact Info -->
@@ -425,7 +428,8 @@
             <!-- Center: Logo Circle -->
             <div class="header-center">
                 <div class="header-logo-circle">
-                    <img src="{{ asset('images/safety_first.jpg') }}" alt="Safety Logo">
+                    {{-- <img src="{{ public_path('images/safety_first.jpg') }}" alt="Safety Logo"> --}}
+                    <img src="{{ $safety_logo }}">
                 </div>
             </div>
 
@@ -445,7 +449,8 @@
         <div class="header-logo-section">
             <!-- Left: SK Logo -->
             <div class="sk-logo">
-                <img src="{{ asset('images/sk_logo.jpeg') }}" alt="SK Logo">
+                {{-- <img src="{{ public_path('images/sk_logo.jpeg') }}" alt="SK Logo"> --}}
+                <img src="{{ $sk_logo }}">
             </div>
 
             <!-- Center: Title -->
@@ -455,7 +460,8 @@
 
             <!-- Right: Fire Extinguisher Icon -->
             <div class="fire-icon-box">
-                <img src="{{ asset('images/fire_extinguare.png') }}" alt="Fire Extinguisher">
+                {{-- <img src="{{ public_path('images/fire_extinguare.png') }}" alt="Fire Extinguisher"> --}}
+                <img src="{{ $fire_icon }}">
             </div>
         </div>
 
@@ -472,6 +478,11 @@
         <!-- ============ CONTENT ============ -->
         <div class="content">
             <div class="content-data">
+                <div class="content-row">
+                    <span class="content-label">CERTIFICATE NO. :</span>
+                    <span class="content-value">SSFS/2025-26/NEW-339</span>
+                </div>
+
                 <!-- Row 1: Company -->
                 <div class="content-row">
                     <span class="content-label">Certified M/s. :</span>
@@ -540,18 +551,19 @@
 
                 <!-- Completion Message -->
                 <div class="completion-message">
-                    The above carried out work is done to my satisfaction : The work is completed<br/>
+                    The above carried out work is done to my satisfaction : The work is completed<br />
                     Thanking your & assuring you of our best & prompt service at all time.
                 </div>
 
-<div style="display:flex; justify-content:space-between; color:#CC0000;">
-    <div>We remain, Your faithfully.</div>
-    <div>For, S.K.FIRE & SAFETY</div>
-</div>
+                <div style="display:flex; justify-content:space-between; color:#CC0000;">
+                    <div>We remain, Your faithfully.</div>
+                    <div>For, S.K.FIRE & SAFETY</div>
+                </div>
 
                 <!-- ISO Badge -->
                 <div class="iso-badge">
-                    <img src="{{ asset('images/iso_9001.jpg') }}" alt="Fire Extinguisher">
+                    {{-- <img src="{{ public_path('images/iso_9001.jpg') }}" alt="Fire Extinguisher"> --}}
+                    <img src="{{ $iso_logo }}">
                 </div>
             </div>
 
@@ -578,24 +590,35 @@
 
         <!-- ============ FOOTER BAR ============ -->
         <div class="footer-bar">
-            ISI AND TAC APPROVED MATERIALS : SERVICES<br/>
+            ISI AND TAC APPROVED MATERIALS : SERVICES<br />
             AVAILABLE IN ALL CENTERS OF GUJARAT
         </div>
 
         <!-- ============ FOOTER ICONS ============ -->
         <div class="footer-icons">
-            <div class="footer-icon"><img src="{{ asset('images/fire_extinguare.png') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_1.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_2.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_3.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_4.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_5.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_6.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_7.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_8.jpg') }}" alt=""></div>
-            <div class="footer-icon"><img src="{{ asset('images/footer_image_9.jpg') }}" alt=""></div>
+            {{-- <div class="footer-icon"><img src="{{ public_path('images/fire_extinguare.png') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_1.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_2.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_3.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_4.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_5.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_6.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_7.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_8.jpg') }}" alt=""></div>
+            <div class="footer-icon"><img src="{{ public_path('images/footer_image_9.jpg') }}" alt=""></div> --}}
+            <img src="{{ $fire_icon }}">
+            <img src="{{ $footer1 }}">
+            <img src="{{ $footer2 }}">
+            <img src="{{ $footer3 }}">
+            <img src="{{ $footer4 }}">
+            <img src="{{ $footer5 }}">
+            <img src="{{ $footer6 }}">
+            <img src="{{ $footer7 }}">
+            <img src="{{ $footer8 }}">
+            <img src="{{ $footer9 }}">
         </div>
 
     </div>
 </body>
+
 </html>
