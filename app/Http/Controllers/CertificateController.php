@@ -85,11 +85,17 @@ class CertificateController extends Controller
 
         $pdfPath = storage_path('app/certificate_' . $certificate->id . '.pdf');
 
-        $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
+        // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
+        $python = '/usr/bin/python3';
 
-        $cmd = "\"$python\" -m weasyprint \"$tempHtmlPath\" \"$pdfPath\" 2>&1";
+        $weasyBin = '/usr/local/bin/weasyprint';
 
-        shell_exec($cmd);
+        if (!file_exists($weasyBin)) {
+            $weasyBin = 'weasyprint';
+        }
+
+        $cmd = $weasyBin . ' ' . escapeshellarg($tempHtmlPath) . ' ' . escapeshellarg($pdfPath) . ' 2>&1';
+        $output = shell_exec($cmd);
 
         @unlink($tempHtmlPath);
 
