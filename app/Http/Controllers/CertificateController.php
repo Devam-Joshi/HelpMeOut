@@ -83,7 +83,8 @@ class CertificateController extends Controller
         $tempHtmlPath = storage_path('app/temp_' . uniqid() . '.html');
         file_put_contents($tempHtmlPath, $html);
 
-        $pdfPath = storage_path('app/certificate_' . $certificate->id . '.pdf');
+        $pdfFileName = 'certificate_' . $certificate->id . '.pdf';
+        $pdfPath = storage_path('app/public/certificates/' . $pdfFileName);
 
         // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
         $python = '/usr/bin/python3';
@@ -102,7 +103,7 @@ class CertificateController extends Controller
         return response()->json([
             'status' => 'success',
             'certificate_id' => $certificate->id,
-            'pdf' => $pdfPath
+            'download_url' => asset('storage/certificates/' . $pdfFileName)
         ]);
     }
 }
