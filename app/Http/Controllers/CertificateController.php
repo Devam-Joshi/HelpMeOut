@@ -104,7 +104,7 @@ class CertificateController extends Controller
         // -----------------------------
         // PDF PATH
         // -----------------------------
-        $pdfFileName = 'certificate-' . $certificate->id . '.pdf';
+        $pdfFileName = $certificate_number.'.pdf';
 
         $absolutePdfPath = storage_path(
             'app/public/certificates/' . $pdfFileName

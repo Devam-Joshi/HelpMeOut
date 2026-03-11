@@ -166,7 +166,6 @@
 
         /* ============ CONTENT SECTION ============ */
         .content {
-<<<<<<< HEAD
             padding: 10px 18px;
         }
 
@@ -209,52 +208,13 @@
             text-align: center;
             word-break: break-word;
             letter-spacing: 0.5px;
-=======
-            padding: 14px 18px;
-        }
-
-        /* Table layout for content rows — much more reliable in WeasyPrint */
-        .content-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-
-        .content-table tr {
-            margin-bottom: 8px;
-        }
-
-        .content-label {
-            font-size: 13px;
-            color: #CC0000;
-            font-weight: bold;
-            white-space: nowrap;
-            padding: 4px 10px 4px 0;
-            vertical-align: middle;
-            width: 170px;
-        }
-
-        .content-value {
-            font-size: 13px;
-            color: #2792fd;
-            border-bottom: 1px dotted #999;
-            padding: 4px 0 2px 4px;
-            vertical-align: middle;
-            width: auto;
-            word-break: break-word;
->>>>>>> bd70bfd79b3de9ef40e5948c98d6a741062dda35
         }
 
         /* ============ COMPLETION MESSAGE ============ */
         .completion-message {
             text-align: center;
-<<<<<<< HEAD
             margin: 12px 0 6px;
             font-size: 14px;
-=======
-            margin: 10px 0 6px;
-            font-size: 13px;
->>>>>>> bd70bfd79b3de9ef40e5948c98d6a741062dda35
             color: #CC0000;
             line-height: 1.6;
             font-weight: bold;
@@ -271,11 +231,7 @@
         .faithfully-right {
             display: table-cell;
             color: #CC0000;
-<<<<<<< HEAD
             font-size: 14px;
-=======
-            font-size: 13px;
->>>>>>> bd70bfd79b3de9ef40e5948c98d6a741062dda35
             font-weight: bold;
             vertical-align: middle;
         }
@@ -299,11 +255,7 @@
         .signature-section {
             display: table;
             width: 100%;
-<<<<<<< HEAD
             margin: 10px 0 4px;
-=======
-            margin: 8px 0 4px;
->>>>>>> bd70bfd79b3de9ef40e5948c98d6a741062dda35
         }
 
         .signature-block {
@@ -315,20 +267,12 @@
 
         .signature-line {
             border-top: 1px solid #333;
-<<<<<<< HEAD
             width: 140px;
-=======
-            width: 120px;
->>>>>>> bd70bfd79b3de9ef40e5948c98d6a741062dda35
             margin: 5px auto 4px;
         }
 
         .signature-label {
-<<<<<<< HEAD
             font-size: 13px;
-=======
-            font-size: 11px;
->>>>>>> bd70bfd79b3de9ef40e5948c98d6a741062dda35
             color: #CC0000;
             font-weight: bold;
             line-height: 1.3;
