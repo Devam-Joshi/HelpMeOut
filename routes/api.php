@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ComplainController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('get-global-dashboard',[AuthController::class,'getGlobalDashboard']);
         Route::get('get-super-dashboard',[AuthController::class,'getSuperDashboard']);
+
+        Route::post('/create-payment', [PaymentController::class, 'createPayment']);
     });
     
     Route::get('getcategory', [CategoryController::class, 'getcategory']);
