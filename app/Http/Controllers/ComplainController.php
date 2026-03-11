@@ -99,8 +99,6 @@ class ComplainController extends Controller
                     'category_name' => $complain->category?->name,
                     'image' => $complain->image,
                     'video' => $complain->video,
-                    'is_payment_created' => $complain->is_payment_created,
-                    'is_certificate_generate' =>  $complain->is_certificate_generate,
                     'created_at' => $complain->created_at,
                 ];
             });
