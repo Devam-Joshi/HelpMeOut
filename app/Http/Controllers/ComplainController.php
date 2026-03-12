@@ -142,6 +142,9 @@ class ComplainController extends Controller
             return ApiResponse::send(false, "Complain Not Found", null, 404);
         }
 
+        // Check if complaint already taken
+    $takenComplain = TakeComplaint::where('complaint_id', $complain->id)->first();
+
         $response = [
             'id' => $complain->id,
             'title' => $complain->title,
@@ -153,7 +156,9 @@ class ComplainController extends Controller
             'video' => $complain->video,
             'created_at' => $complain->created_at,
             'latitude' => $complain->latitude,
-            'longitude' => $complain->longitude
+            'longitude' => $complain->longitude,
+            'taken_by_name' => $complain->user?->name,
+            'taken_by_id' => $takenComplain->agent_id ?? null,
         ];
 
         return ApiResponse::send(
