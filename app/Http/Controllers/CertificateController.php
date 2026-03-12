@@ -166,4 +166,27 @@ class CertificateController extends Controller
             'download_url' => asset('storage/certificates/' . $pdfFileName)
         ]);
     }
+
+    public function downloadCertificate(Request $request)
+    {
+        $certificate = Certificate::where('complaint_id', $request->complaint_id)->first();
+
+        if (!$certificate) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Certificate not found'
+            ], 404);
+        }
+
+        $filePath = storage_path('app/public/certificates/' . $certificate->pdf_name);
+
+        if (!file_exists($filePath)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'PDF file not found'
+            ], 404);
+        }
+
+        return response()->download($filePath);
+    }
 }
