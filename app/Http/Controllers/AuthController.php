@@ -223,6 +223,13 @@ class AuthController extends Controller
         return ApiResponse::send(true, "User Fetch Successfully", $getuserlist);
     }
 
+    public function getagentlist()
+    {
+        $getuserlist = User::where('role_id', 2)->get();
+
+        return ApiResponse::send(true, "Agent Fetch Successfully", $getuserlist);
+    }
+
     public function changepassword(Request $request)
     {
         // dd($request->all());

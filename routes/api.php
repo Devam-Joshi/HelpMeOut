@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('category-to-user', [CategoryController::class, 'CategoryToUser']);
         Route::post('update-status',[ComplainController::class,'updateStatus']);
         Route::get('getuserlist',[AuthController::class,'getuserlist']);
+        Route::get('getagentlist',[AuthController::class,'getagentlist']);
         Route::post('delete-category',[CategoryController::class ,'delete']);
         Route::post('edit-category',[CategoryController::class,'editcategory']);
         Route::get('getcomplainbystatus',[ComplainController::class,'getcomplainbystatus']);
@@ -44,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/create-payment', [PaymentController::class, 'createPayment']);
     });
-    
+
     Route::get('getcategory', [CategoryController::class, 'getcategory']);
     Route::post('create-complain', [ComplainController::class, 'CreateComplain']);
     Route::get('getcompalinbyid',[ComplainController::class,'getcompalinbyid']);
