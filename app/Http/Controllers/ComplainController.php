@@ -156,6 +156,7 @@ class ComplainController extends Controller
             'user_name' => $complain->user?->name,
             'category_id' => $complain->category_id,
             'category_name' => $complain->category?->name,
+            'status' => $complain->status,
             'image' => $complain->image,
             'video' => $complain->video,
             'created_at' => $complain->created_at,
