@@ -152,6 +152,8 @@ class ComplainController extends Controller
             'image' => $complain->image,
             'video' => $complain->video,
             'created_at' => $complain->created_at,
+            'latitude' => $complain->latitude,
+            'longitude' => $complain->longitude
         ];
 
         return ApiResponse::send(
