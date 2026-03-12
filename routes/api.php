@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('changepassword',[AuthController::class,'changepassword']);
     // Update/Edit user profile (name, contact, image, status, etc.)
     Route::post('/edituser', [AuthController::class, 'edituser']);
+    Route::post('/deleteuser',[AuthController::class,'deleteuser']);
     // Route::post('create-category',[CategoryController::class,'createCategopry']);
 
     Route::middleware(['auth:sanctum'])->group(function () {

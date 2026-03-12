@@ -138,6 +138,23 @@ class AuthController extends Controller
         return ApiResponse::send(true, "User Updated Successfully", $user);
     }
 
+    public function deleteuser(Request $request)
+    {
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+        if (!$request->id) {
+            return ApiResponse::send(false, "User Not Found", $validator->errors(), 422);
+
+        }
+        // dd($request->id);
+        $category = User::where('id', $request->id)->first();
+        // dd($category);
+        $category->delete();
+
+        return ApiResponse::send(true, "User Deleted Successfully");
+    }
+
     public function forgotPasswordMail(Request $request)
     {
         // dd($request->email);
