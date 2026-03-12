@@ -9,6 +9,7 @@ class Certificate extends Model
     protected $fillable = [
         'complaint_id',
         'certificate_number',
+        'pdf_name',
         'issued_to',
         'issue_date',
         'no_of_pc',

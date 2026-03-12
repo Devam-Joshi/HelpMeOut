@@ -120,10 +120,10 @@ class CertificateController extends Controller
         // -----------------------------
         // WEASYPRINT PATH
         // -----------------------------
-        //for local 
+        //for local
         // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
 
-        // for live 
+        // for live
         $python = '/usr/local/bin/weasyprint';
 
         // base URL for images
@@ -150,6 +150,11 @@ class CertificateController extends Controller
                 'log' => $output
             ]);
         }
+
+        // Save pdf name
+        $certificate->update([
+            'pdf_name' => $pdfFileName
+        ]);
 
         // -----------------------------
         // RETURN DOWNLOAD URL
