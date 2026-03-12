@@ -88,23 +88,27 @@ class ComplainController extends Controller
     {
         $user = Auth::user();
 
-        $complains = Compalin::with('category:id,name')
-            ->where('user_id', $user->id)
-            ->get()
-            ->map(function ($complain) {
-                return [
-                    'id' => $complain->id,
-                    'title' => $complain->title,
-                    'category_id' => $complain->category_id,
-                    'category_name' => $complain->category?->name,
-                    'image' => $complain->image,
-                    'status'=> $complain->status,
-                    'video' => $complain->video,
-                    'is_payment_created' => $complain->is_payment_created,
-                    'is_certificate_generate' =>  $complain->is_certificate_generate,
-                    'created_at' => $complain->created_at,
-                ];
-            });
+        $query = Compalin::with('category:id,name');
+
+        // If role_id = 2, show only user's complaints
+        if ($user->role_id == 2) {
+            $query->where('user_id', $user->id);
+        }
+
+        $complains = $query->get()->map(function ($complain) {
+            return [
+                'id' => $complain->id,
+                'title' => $complain->title,
+                'category_id' => $complain->category_id,
+                'category_name' => $complain->category?->name,
+                'image' => $complain->image,
+                'status' => $complain->status,
+                'video' => $complain->video,
+                'is_payment_created' => $complain->is_payment_created,
+                'is_certificate_generate' => $complain->is_certificate_generate,
+                'created_at' => $complain->created_at,
+            ];
+        });
 
         return ApiResponse::send(
             true,
