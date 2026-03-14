@@ -19,7 +19,7 @@
             padding: 0;
         }
 
-        /* 
+        /*
             NO @import from Google Fonts — server has no internet.
             Use only system fonts available on Linux (DejaVu, Liberation, etc.)
         */
@@ -37,7 +37,7 @@
 
         /* ============ CERTIFICATE CONTAINER ============ */
         .certificate-container {
-            width: 210mm;
+            width: 200mm;
             margin: 0 auto;
             background: white;
             border: 3px solid #D4A574;
