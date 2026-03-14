@@ -236,7 +236,7 @@ class AuthController extends Controller
     public function getuserlist()
     {
         // dd('getuserlist');
-        $getuserlist = User::all();
+        $getuserlist = User::whereIn('role_id', [1, 2])->get();
         return ApiResponse::send(true, "User Fetch Successfully", $getuserlist);
     }
 
