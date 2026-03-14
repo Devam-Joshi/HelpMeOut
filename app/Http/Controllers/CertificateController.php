@@ -141,6 +141,7 @@ class CertificateController extends Controller
         // save log
         file_put_contents(storage_path('logs/weasyprint.log'), $output);
 
+
         // remove temp file
         @unlink($tempHtmlPath);
 
