@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('get-global-dashboard',[AuthController::class,'getGlobalDashboard']);
         Route::get('get-super-dashboard',[AuthController::class,'getSuperDashboard']);
 
-        Route::post('/create-payment', [PaymentController::class, 'createPayment']);
+        Route::post('create-payment', [PaymentController::class, 'createPayment']);
     });
 
     Route::get('getcategory', [CategoryController::class, 'getcategory']);
@@ -61,5 +61,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('downloadCertificate',[CertificateController::class,'downloadCertificate']);
 
     Route::post('download-payment-report', [downloadPaymentReport::class, 'downloadPaymentReport']);
+
     });
 
