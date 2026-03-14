@@ -238,7 +238,6 @@ class ComplainController extends Controller
 
         // Update complaint status
         Compalin::where('id', $data['complaint_id'])->update([
-            'status' => 4,
             'user_id' => $agentId,
         ]);
 
