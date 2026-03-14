@@ -178,15 +178,9 @@ class CertificateController extends Controller
             ], 404);
         }
 
-        $filePath = storage_path('app/public/certificates/' . $certificate->pdf_name);
-
-        if (!file_exists($filePath)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'PDF file not found'
-            ], 404);
-        }
-
-        return response()->download($filePath);
+        return response()->json([
+            'status' => true,
+            'pdf_url' => asset('storage/certificates/' . $certificate->pdf_name)
+        ]);
     }
 }
