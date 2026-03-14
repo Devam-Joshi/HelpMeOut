@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\downloadPaymentReport;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,5 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('create-certificate',[CertificateController::class,'create']);
     Route::post('downloadCertificate',[CertificateController::class,'downloadCertificate']);
-});
+
+    Route::get('download-payment-report', [downloadPaymentReport::class, 'downloadPaymentReport']);
+    });
 
