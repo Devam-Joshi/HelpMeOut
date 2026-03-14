@@ -60,6 +60,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('create-certificate',[CertificateController::class,'create']);
     Route::post('downloadCertificate',[CertificateController::class,'downloadCertificate']);
 
-    Route::get('download-payment-report', [downloadPaymentReport::class, 'downloadPaymentReport']);
+    Route::post('download-payment-report', [downloadPaymentReport::class, 'downloadPaymentReport']);
     });
 
