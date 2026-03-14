@@ -225,15 +225,14 @@ font-family: Arial, Helvetica, sans-serif;
     }
 
     /* ── FOOTER ── */
-    .receipt-footer {
+.receipt-footer {
     position: absolute;
-    bottom: 40px;
-    left: 52px;
-    right: 52px;
+    bottom: 30mm;
+    left: 20mm;
+    right: 20mm;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 16px;
-    align-items: end;
     border-top: 1px dashed #d0c8b4;
     padding-top: 16px;
 }
@@ -336,7 +335,7 @@ html, body {
 
       @if(file_exists($logoPath))
         <div class="logo-box">
-          <img src="{{ public_path('images/sk_logo.jpeg') }}" alt="Logo"/>
+          <img src="{{ url('images/sk_logo.jpeg') }}" alt="Logo"/>
         </div>
       @else
         <div class="logo-icon-fallback">

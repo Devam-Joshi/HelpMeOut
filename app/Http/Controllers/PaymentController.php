@@ -93,7 +93,7 @@ class PaymentController extends Controller
     // $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
 
     // base URL for images
-    $baseUrl = public_path();
+    $baseUrl = public_path('/');
 
     // -----------------------------
     // GENERATE PDF
