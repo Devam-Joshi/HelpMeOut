@@ -87,10 +87,10 @@ class PaymentController extends Controller
     // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
 
     // for live
-    $python = '/usr/local/bin/weasyprint';
+    // $python = '/usr/local/bin/weasyprint';
 
     // for local (Mac)
-    // $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
+    $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
 
     // base URL for images
     $baseUrl = public_path();
@@ -98,7 +98,7 @@ class PaymentController extends Controller
     // -----------------------------
     // GENERATE PDF
     // -----------------------------
-    $cmd = "\"$python\" -m weasyprint --optimize-images -j 70 -D 500 --base-url \"$baseUrl\" \"$tempHtmlPath\" \"$absolutePdfPath\" 2>&1";
+    $cmd = "\"$python\" \"$tempHtmlPath\" \"$absolutePdfPath\" --base-url \"$baseUrl\" 2>&1";
     $output = shell_exec($cmd);
 
     // Save log

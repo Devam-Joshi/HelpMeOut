@@ -16,20 +16,15 @@
       align-items: center;
       justify-content: center;
       padding: 30px 20px;
-      font-family: 'Open Sans', sans-serif;
+font-family: Arial, Helvetica, sans-serif;
     }
 
     /* A4 = 794px × 1123px */
     .receipt-wrapper {
-      width: 794px;
-      height: 1123px;
-      background: #f5f0e8;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
-      flex-shrink: 0;
+        width: 210mm;
+        min-height: 297mm;
+        background: #f5f0e8;
+        position: relative;
     }
 
     /* ── BLOBS ── */
@@ -88,12 +83,12 @@
       flex-shrink: 0;
     }
     .header-title {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 28px; font-weight: 800;
       letter-spacing: .06em; color: #1a1a1a; line-height: 1.1;
     }
     .header-title-2 {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 20px; font-weight: 800;
       letter-spacing: .06em; color: #1a1a1a; line-height: 1.1;
     }
@@ -105,7 +100,7 @@
       display: inline-block;
       background: #1a1a1a;
       color: #fff;
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: .1em;
@@ -115,7 +110,7 @@
       margin-bottom: 6px;
     }
     .receipt-num {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 18px; font-weight: 800;
       color: #1a1a1a; letter-spacing: .04em;
     }
@@ -145,7 +140,7 @@
     }
     .cs-item { flex: 1; }
     .cs-label {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 9.5px; font-weight: 700;
       letter-spacing: .12em; text-transform: uppercase;
       color: #7a7060; margin-bottom: 4px;
@@ -177,7 +172,7 @@
 
     thead tr { background: #1a1a1a; }
     thead th {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 10.5px; font-weight: 700;
       letter-spacing: .14em; text-transform: uppercase;
       padding: 12px 12px; color: #fff; text-align: left;
@@ -195,8 +190,6 @@
     tbody td.right  { text-align: right; font-weight: 600; }
     tbody tr.empty-row td { height: 42px; }
 
-    /* ── SPACER ── */
-    .spacer { flex: 1 1 auto; min-height: 0; }
 
     /* ── BOTTOM ── */
     .bottom-section {
@@ -213,7 +206,7 @@
       margin-bottom: 6px; line-height: 1.6;
     }
     .payment-info strong {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-weight: 700; font-size: 11px;
     }
     .totals-row {
@@ -221,26 +214,29 @@
       font-size: 13px; color: #2e2a22; margin-bottom: 6px;
     }
     .totals-row strong {
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-weight: 700; font-size: 11px; letter-spacing: .03em;
     }
     .totals-row.final {
       margin-top: 8px; padding-top: 8px;
       border-top: 2px solid #2e2a22;
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       font-weight: 800; font-size: 15px;
     }
 
     /* ── FOOTER ── */
     .receipt-footer {
-      padding: 16px 52px 30px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: end;
-      flex-shrink: 0;
-      border-top: 1px dashed #d0c8b4;
-    }
+    position: absolute;
+    bottom: 40px;
+    left: 52px;
+    right: 52px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: end;
+    border-top: 1px dashed #d0c8b4;
+    padding-top: 16px;
+}
     .footer-note {
       font-size: 11px; color: #7a7060;
       line-height: 1.7; max-width: 340px;
@@ -300,12 +296,25 @@
         width: 210mm; height: 297mm;
       }
       .receipt-wrapper {
-        box-shadow: none;
-        width: 210mm; height: 297mm;
-        page-break-after: avoid;
-      }
+    width: 210mm;
+    height: 297mm;
+    background: #f5f0e8;
+    position: relative;
+    padding-bottom: 140px; /* reserve space for footer */
+}
     }
-    @page { size: A4; margin: 0; }
+    @page {
+  size: A4;
+  margin: 0;
+}
+
+html, body {
+  width: 210mm;
+  height: auto;
+  background: white;
+  margin: 0;
+  padding: 0;
+}
   </style>
 </head>
 <body>
@@ -412,8 +421,6 @@
       </tbody>
     </table>
   </div>
-
-  <div class="spacer"></div>
 
   {{-- ═══════════════════════════════════════
        BOTTOM  (payment info + totals)
