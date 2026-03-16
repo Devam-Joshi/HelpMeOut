@@ -69,6 +69,7 @@ class CertificateController extends Controller
         $certificate = Certificate::create([
             'complaint_id' => $request->complaint_id,
             'certificate_number' => $certificate_number,
+            'fire_extinguisher_type' =>$request->typeOfFireExtinguisher,
             'issued_to' => $request->issued_to,
             'issue_date' => $request->issue_date,
             'due_date' => $dueDateFormatted,
@@ -89,6 +90,7 @@ class CertificateController extends Controller
         $html = view('certificate', [
             'certificate_number' => $certificate_number,
             'issued_to' => $certificate->issued_to,
+            'fire_extinguisher_type' => $certificate->fire_extinguisher_type,
             'issue_date' => $certificate->issue_date,
             'no_of_pc' => $certificate->no_of_pc,
             'serial_no' => $certificate->serial_no,
@@ -125,10 +127,10 @@ class CertificateController extends Controller
         // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
 
         // for live
-        $python = '/usr/local/bin/weasyprint';
+        // $python = '/usr/local/bin/weasyprint';
 
         // for local (Mac)
-        // $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
+        $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
 
         // base URL for images
         $baseUrl = public_path();

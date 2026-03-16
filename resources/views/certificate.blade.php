@@ -399,7 +399,7 @@
             </tr>
             <tr>
                 <td class="content-label">Type of FireExtinguisher :</td>
-                <td class="content-value">REFILLING OF TYPE FIRE EXTINGUISHERS 10 KGS 2 PCS</td>
+                <td class="content-value">{{ $fire_extinguisher_type }}</td>
             </tr>
             <tr>
                 <td class="content-label">No. of Pcs. :</td>
