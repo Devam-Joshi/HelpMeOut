@@ -62,7 +62,7 @@ font-family: Arial, Helvetica, sans-serif;
       gap: 18px;
     }
     .logo-box {
-      width: 72px; height: 72px;
+      width: 80px; height: 80px;
       border-radius: 10px;
       overflow: hidden;
       flex-shrink: 0;
@@ -85,12 +85,12 @@ font-family: Arial, Helvetica, sans-serif;
     .header-title {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 28px; font-weight: 800;
-      letter-spacing: .06em; color: #1a1a1a; line-height: 1.1;
+      letter-spacing: .06em; color: #2792fd; line-height: 1.1;
     }
     .header-title-2 {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 20px; font-weight: 800;
-      letter-spacing: .06em; color: #1a1a1a; line-height: 1.1;
+      letter-spacing: .06em; color: #2792fd; line-height: 1.1;
     }
     .header-address { font-size: 13px; color: #7a7060; margin-top: 5px; }
 
@@ -98,7 +98,7 @@ font-family: Arial, Helvetica, sans-serif;
     .header-right { text-align: right; }
     .receipt-badge {
       display: inline-block;
-      background: #1a1a1a;
+      background: #2792fd;
       color: #fff;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10px;
@@ -170,7 +170,7 @@ font-family: Arial, Helvetica, sans-serif;
     col.col-price { width: 22%; }
     col.col-total { width: 20%; }
 
-    thead tr { background: #1a1a1a; }
+    thead tr { background: #2792fd; }
     thead th {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10.5px; font-weight: 700;
@@ -230,16 +230,13 @@ font-family: Arial, Helvetica, sans-serif;
     bottom: 30mm;
     left: 20mm;
     right: 20mm;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 16px;
     border-top: 1px dashed #d0c8b4;
     padding-top: 16px;
 }
-    .footer-note {
-      font-size: 11px; color: #7a7060;
-      line-height: 1.7; max-width: 340px;
-    }
     .footer-ids {
       font-size: 10px; color: #aaa09a;
       margin-top: 8px; font-style: italic;
@@ -247,10 +244,17 @@ font-family: Arial, Helvetica, sans-serif;
     .sig-label { font-size: 11px; color: #5a5246; margin-bottom: 5px; text-align: center; }
     .sig-svg { display: block; }
 
-    .signature-block {
-  text-align: center;
+.footer-note {
+  font-size: 11px;
+  color: #7a7060;
+  line-height: 1.7;
+  max-width: 70%;
 }
 
+.signature-block {
+  width: 30%;
+  text-align: center;
+}
 .sig-label {
   font-size: 11px;
   color: #5a5246;
@@ -335,7 +339,7 @@ html, body {
 
       @if(file_exists($logoPath))
         <div class="logo-box">
-          <img src="{{ url('images/sk_logo.jpeg') }}" alt="Logo"/>
+          <img src="images/sk_logo.jpeg">
         </div>
       @else
         <div class="logo-icon-fallback">
