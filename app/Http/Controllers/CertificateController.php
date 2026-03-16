@@ -176,7 +176,7 @@ class CertificateController extends Controller
             $tokenUser = $this->getUserFCMTokensById($admin->id);
 
             if ($tokenUser) {
-                $noti = $this->sendNotification($title, $message, $tokenUser, $admin->id);
+                $this->sendNotification($title, $message, $tokenUser, $admin->id);
             }
         }
         // -----------------------------
