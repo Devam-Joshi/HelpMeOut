@@ -53,8 +53,9 @@ class ComplainController extends Controller
             'video' => "storage/" . $videoPath,
         ]);
 
+        $agent = auth()->user();
         // 🔔 Send Notification to Admin & SuperAdmin
-        $admins = User::whereIn('role_id', [3,2])->get();
+        $admins = User::whereIn('role_id', [3,2])->where('id','!=',$agent->id)->get();
 
         $title = "New Complaint Created";
         $message = "A new complaint has been submitted.";

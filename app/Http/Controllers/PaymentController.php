@@ -147,7 +147,9 @@ class PaymentController extends Controller
     $title = "Payment Created";
     $message = "Payment for Complaint ID ".$request->complaint_id." is created by ".$agent->name;
 
-    $admins = User::whereIn('role_id', [3,2])->get();
+    $admins = User::whereIn('role_id', [3,2])
+            ->where('id','!=',$agent->id)
+            ->get();
 
     foreach ($admins as $admin) {
 
