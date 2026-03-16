@@ -39,7 +39,24 @@ class PaymentController extends Controller
         'payment_made_by' => $request->payment_made_by,
     ]);
 
-    // Update complaint field
+        // -----------------------------
+        // IMAGE BASE64 FUNCTION
+        // -----------------------------
+        function base64Image($path)
+        {
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            return 'data:image/' . $type . ';base64,' . base64_encode($data);
+        }
+
+        // -----------------------------
+        // IMAGES
+        // -----------------------------
+        $images = [
+            'sk_logo' => base64Image(public_path('images/sk_logo.jpeg')),
+        ];
+
+        // Update complaint field
     Compalin::where('id', $request->complaint_id)
         ->update(['is_payment_created' => 1]);
 
@@ -56,6 +73,7 @@ class PaymentController extends Controller
     'payment'   => $payment,                          // Payment model
     'complaint' => Compalin::find($payment->complaint_id),
     'user'      => User::find($complaint->user_id),
+    'images'   => $images,
 ])->render();
 
 
