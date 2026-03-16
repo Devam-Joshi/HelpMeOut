@@ -54,7 +54,7 @@ class ComplainController extends Controller
         ]);
 
         // 🔔 Send Notification to Admin & SuperAdmin
-        $admins = User::whereIn('role_id', [1,2])->get();
+        $admins = User::whereIn('role_id', [3,2])->get();
 
         $title = "New Complaint Created";
         $message = "A new complaint has been submitted.";
