@@ -333,14 +333,7 @@ html, body {
     <div class="header-left">
 
       {{-- LOGO: show org/app logo if exists, else fallback icon --}}
-      @php
-        $logoPath = public_path('images/sk_logo.jpeg');
-      @endphp
 
-
-    <div class="logo-box">
-        <img src="{{ public_path('images/sk_logo.jpeg') }}" alt="Safety Logo">
-    </div>
 
       <div>
         <div class="header-title">SHREE S.K.FIRE</div>
