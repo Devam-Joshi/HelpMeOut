@@ -339,7 +339,7 @@ html, body {
 
       @if(file_exists($logoPath))
         <div class="logo-box">
-          <img src="{{ $sk_logo }}" alt="Safety Logo">
+          <img src="{{ $images['sk_logo'] }}" alt="Safety Logo">
         </div>
       @else
         <div class="logo-icon-fallback">
