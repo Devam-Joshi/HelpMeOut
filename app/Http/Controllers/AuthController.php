@@ -51,8 +51,9 @@ class AuthController extends Controller
             'contact' => 'nullable',
             'password' => 'required',
             'role_id' => 'required|in:1,2,3', // 1=admin, 2=agent, 3=super admin
+            'fcm_token' => 'required'
         ]);
-
+// dd($request);
         if ($validated->fails()) {
             return ApiResponse::send(false, "Validation Error", $validated->errors(), 422);
         }

@@ -123,6 +123,22 @@ class PaymentController extends Controller
         'pdf_name' => $pdfFileName
     ]);
 
+    // 🔔 Send Notification to Admin & SuperAdmin
+    $agent = auth()->user();
+
+    $title = "Payment Created";
+    $message = "Payment for Complaint ID ".$request->complaint_id." is created by ".$agent->name;
+
+    $admins = User::whereIn('role_id', [3,2])->get();
+
+    foreach ($admins as $admin) {
+
+        $tokenUser = $this->getUserFCMTokensById($admin->id);
+
+        if ($tokenUser) {
+            $this->sendNotification($title, $message, $tokenUser, $admin->id);
+        }
+    }
     // -----------------------------
     // RETURN RESPONSE
     // -----------------------------
