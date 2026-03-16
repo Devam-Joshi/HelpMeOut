@@ -85,6 +85,8 @@ class AuthController extends Controller
         // create token
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
         return ApiResponse::send(true, "Login Successful", [
             'user' => [
                 'id' => $user->id,
@@ -308,6 +310,16 @@ class AuthController extends Controller
         ];
 
         return ApiResponse::send(true, "Dashboard", $data);
+    }
+
+    public function sendTestNotification(Request $request){
+        $token = $request->fcm_token;
+
+        $title = "Devam";
+        $msg = "Devam Msg";
+        $tokenUser = $this->getUserFCMTokensById(1);
+        $noti = $this->sendNotification($title,$msg,$tokenUser,$user->id);
+        dd($noti);
     }
 
 }

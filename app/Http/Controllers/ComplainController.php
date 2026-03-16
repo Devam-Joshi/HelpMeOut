@@ -9,6 +9,7 @@ use App\Models\TakeComplaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class ComplainController extends Controller
 {
@@ -51,6 +52,20 @@ class ComplainController extends Controller
             'image' => "storage/" . $imagePath,
             'video' => "storage/" . $videoPath,
         ]);
+
+        // 🔔 Send Notification to Admin & SuperAdmin
+        $admins = User::whereIn('role_id', [1,2])->get();
+
+        $title = "New Complaint Created";
+        $message = "A new complaint has been submitted.";
+
+        foreach ($admins as $admin) {
+            $tokenUser = $this->getUserFCMTokensById($admin->id);
+
+            if ($tokenUser) {
+                $this->sendNotification($title, $message, $tokenUser, $admin->id);
+            }
+        }
 
         return ApiResponse::send(true, "Complain Created Successfully", $complain, 201);
     }

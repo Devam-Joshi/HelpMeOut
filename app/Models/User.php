@@ -24,7 +24,8 @@ class User extends Authenticatable
         'contact',
         'status',
         'profile_image',
-        'role_id'
+        'role_id',
+        'fcm_token'
     ];
 
     /**
