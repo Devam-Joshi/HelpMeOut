@@ -60,10 +60,9 @@ class ComplainController extends Controller
         $message = "A new complaint has been submitted.";
 
         foreach ($admins as $admin) {
-            $tokenUser = $this->getUserFCMTokensById($admin->id);
-
+            $tokenUser  = $this->getUserFCMTokensById($admin->id);
             if ($tokenUser) {
-                $this->sendNotification($title, $message, $tokenUser, $admin->id);
+                $noti = $this->sendNotification($title, $message, $tokenUser, $admin->id);
             }
         }
 
@@ -256,13 +255,31 @@ class ComplainController extends Controller
             'user_id' => $agentId,
         ]);
 
-        $message = isset($data['agent_id'])
-            ? 'Complaint assigned to agent successfully'
-            : 'Complaint taken successfully';
+            /*
+            |--------------------------------------------------------------------------
+            | 🔔 Send Notification to Assigned Agent
+            |--------------------------------------------------------------------------
+            */
+
+            $complaint = Compalin::find($data['complaint_id']);
+
+            $title = "Complaint Assigned";
+            $message = "A complaint has been assigned to you.";
+
+            // Get agent FCM token
+            $tokenUser = $this->getUserFCMTokensById($agentId);
+
+            if ($tokenUser) {
+                $this->sendNotification($title, $message, $tokenUser, $agentId);
+            }
+
+            $messageResponse = isset($data['agent_id'])
+                ? 'Complaint assigned to agent successfully'
+                : 'Complaint taken successfully';
 
         return ApiResponse::send(
             true,
-            $message,
+            $messageResponse,
             $takeComplaint,
             201
         );
