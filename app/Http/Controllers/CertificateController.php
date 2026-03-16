@@ -127,10 +127,10 @@ class CertificateController extends Controller
         // $python = 'C:\Users\Devam Joshi\AppData\Local\Programs\Python\Python313\python.exe';
 
         // for live
-        $python = '/usr/local/bin/weasyprint';
+        // $python = '/usr/local/bin/weasyprint';
 
         // for local (Mac)
-        // $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
+        $python = '/Users/riddhithanki/weasy-env/bin/weasyprint';
 
         // base URL for images
         $baseUrl = public_path();
@@ -174,9 +174,10 @@ class CertificateController extends Controller
         foreach ($admins as $admin) {
 
             $tokenUser = $this->getUserFCMTokensById($admin->id);
-
+// dd($tokenUser);
             if ($tokenUser) {
-                $this->sendNotification($title, $message, $tokenUser, $admin->id);
+                $noti = $this->sendNotification($title, $message, $tokenUser, $admin->id);
+                dd($noti);
             }
         }
         // -----------------------------
