@@ -337,19 +337,10 @@ html, body {
         $logoPath = public_path('images/sk_logo.jpeg');
       @endphp
 
-      {{-- @if(file_exists($logoPath)) --}}
-        <div class="logo-box">
-          <img src="images/sk_logo.jpeg" alt="Safety Logo">
-        </div>
-      {{-- @else --}}
-        {{-- <div class="logo-icon-fallback">
-          <svg width="38" height="38" viewBox="0 0 32 32" fill="none">
-            <path d="M22 6L10 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M13 6H22V15" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10 17L10 26H19" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div> --}}
-      {{-- @endif --}}
+
+    <div class="logo-box">
+        <img src="{{ public_path('images/sk_logo.jpeg') }}" alt="Safety Logo">
+    </div>
 
       <div>
         <div class="header-title">SHREE S.K.FIRE</div>
