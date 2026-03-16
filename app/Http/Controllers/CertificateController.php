@@ -177,7 +177,7 @@ class CertificateController extends Controller
 // dd($tokenUser);
             if ($tokenUser) {
                 $noti = $this->sendNotification($title, $message, $tokenUser, $admin->id);
-                dd($noti);
+                // dd($noti);
             }
         }
         // -----------------------------
